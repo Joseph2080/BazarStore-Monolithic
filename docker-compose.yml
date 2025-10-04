@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  bazar-store-database:
+    container_name: bazar-store-database
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Panda2020
+      - POSTGRES_DB=bazar_store_db
+    ports:
+      - "5432:5432"
+    networks:
+      - bazar-network
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Persistent volume for database data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  bazar-store-application:
+    build:
+      context: ..
+      dockerfile: .Dockerfile
+    environment:
+      DB_URL: jdbc:postgresql://bazar-store-database:5432/bazar_store_db
+    networks:
+      - bazar-network
+    depends_on:
+      bazar-store-database:
+        condition: service_healthy
+
+  redis-server:
+    container_name: redis-server
+    image: redis:latest
+    restart: always
+    command: >
+      sh -c "redis-server --requirepass admin &&
+             redis-cli ACL SETUSER admin on >admin allcommands allkeys &&
+             redis-server"
+    ports:
+      - "6379:6379"
+    networks:
+      - bazar-network
+    volumes:
+      - redisdata:/data
+
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  order-database:
+    container_name: order-database
+    image: mongo:4.4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: order_db
+    ports:
+      - "27017:27017"
+    networks:
+      - bazar-network
+    volumes:
+      - ./order-service/src/main/resources/mongo/init.js:/docker-entrypoint-initdb.d/init.js
+    healthcheck:
+      test: [ "CMD", "mongo", "order-database:27017/order_db", "--eval", "db.runCommand('ping').ok" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  bazar-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+  redisdata:
+

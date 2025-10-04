@@ -44,7 +44,7 @@ public class StoreRestController {
     @ApiResponse(responseCode = "200", description = "Store created successfully")
     @PostMapping
     public ResponseEntity<Map<String, Object>> postStore(@RequestBody StoreRequestDto storeRequestDto) {
-        return RestUtil.buildResponse(storeService.create(storeRequestDto), HttpStatus.OK, "Store has been created successfully.");
+        return buildResponse(storeService.create(storeRequestDto), HttpStatus.OK, "Store has been created successfully.");
     }
 
     @Operation(summary = "Update store wallpaper", description = "Updates the wallpaper of a store.")

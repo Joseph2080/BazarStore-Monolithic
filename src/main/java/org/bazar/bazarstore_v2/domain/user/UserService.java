@@ -6,4 +6,5 @@ public interface UserService {
     void deleteUser(String username);
     boolean doesUserExistsById(String userId);
     void deleteAllUsers();
+    UserResponseDto findUserById(String userId);
 }

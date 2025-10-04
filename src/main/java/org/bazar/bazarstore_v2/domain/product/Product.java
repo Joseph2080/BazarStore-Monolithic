@@ -12,7 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.bazar.bazarstore_v2.common.entity.BaseEntity;
+import org.bazar.bazarstore_v2.common.entity.BaseJpaEntity;
 import org.bazar.bazarstore_v2.domain.productCatalog.ProductCatalog;
 import org.bazar.bazarstore_v2.domain.store.Store;
 
@@ -26,7 +26,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Product extends BaseEntity {
+public class Product extends BaseJpaEntity {
 
     private String name;
     private String description;

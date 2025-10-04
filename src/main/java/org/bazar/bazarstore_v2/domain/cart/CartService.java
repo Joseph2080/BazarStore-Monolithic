@@ -5,7 +5,7 @@ import java.util.List;
 public interface CartService {
     public void create(String cartId, Cart cart);
     void clearById(String cartId);
-    Cart findById(String uuid);
+    Cart findById(String cartId);
     Cart findCartByCustomerId(String customerId);
     void removeById(String cartId);
     void removeByCustomerId(String uuid);

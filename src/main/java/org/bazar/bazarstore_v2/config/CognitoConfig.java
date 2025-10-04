@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CognitoConfig {
-
     private final String region;
     private final BasicAWSCredentials awsCredentials;
 

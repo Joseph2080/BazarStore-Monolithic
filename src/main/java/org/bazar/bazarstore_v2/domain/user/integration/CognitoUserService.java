@@ -7,6 +7,7 @@ import com.amazonaws.services.cognitoidp.model.AdminCreateUserResult;
 import com.amazonaws.services.cognitoidp.model.AdminDeleteUserRequest;
 import com.amazonaws.services.cognitoidp.model.AdminEnableUserRequest;
 import com.amazonaws.services.cognitoidp.model.AdminGetUserRequest;
+import com.amazonaws.services.cognitoidp.model.AdminGetUserResult;
 import com.amazonaws.services.cognitoidp.model.AdminSetUserPasswordRequest;
 import com.amazonaws.services.cognitoidp.model.AttributeType;
 import com.amazonaws.services.cognitoidp.model.InvalidPasswordException;
@@ -15,9 +16,11 @@ import com.amazonaws.services.cognitoidp.model.ListUsersResult;
 import com.amazonaws.services.cognitoidp.model.MessageActionType;
 import com.amazonaws.services.cognitoidp.model.UserNotFoundException;
 import com.amazonaws.services.cognitoidp.model.UserType;
+import org.bazar.bazarstore_v2.common.exception.EntityNotFoundException;
 import org.bazar.bazarstore_v2.common.exception.InvalidFieldException;
 import org.bazar.bazarstore_v2.common.util.ServiceConstants;
 import org.bazar.bazarstore_v2.domain.user.UserRequestDto;
+import org.bazar.bazarstore_v2.domain.user.UserResponseDto;
 import org.bazar.bazarstore_v2.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -121,6 +124,34 @@ public class CognitoUserService implements UserService {
         } catch (Exception ex) {
             throw new RuntimeException(COGNITO_REQUEST_ERROR, ex);
         }
+    }
+
+    @Override
+    public UserResponseDto findUserById(String userId) {
+
+        try{
+            AdminGetUserRequest request = new AdminGetUserRequest()
+                    .withUserPoolId(userPoolId)
+                    .withUsername(userId);
+            AdminGetUserResult response = cognitoClient.adminGetUser(request);
+            return UserResponseDto.builder()
+                    .userId(response.getUsername())
+                    .email(getAttributeValue(response, "email"))
+                    .phoneNumber(getAttributeValue(response, "phone_number"))
+                    .build();
+        }catch(UserNotFoundException ex){
+            throw new EntityNotFoundException("Unable to find user by provided userId : " + userId, ex);
+        }catch(Exception ex){
+            throw new RuntimeException(COGNITO_REQUEST_ERROR, ex);
+        }
+    }
+
+    private String getAttributeValue(AdminGetUserResult response, String attributeName) {
+        return response.getUserAttributes().stream()
+                .filter(attr -> attributeName.equals(attr.getName()))
+                .findFirst()
+                .map(AttributeType::getValue)
+                .orElse(null);
     }
 
     private ListUsersResult getListUserResults(ListUsersRequest listUsersRequest) {

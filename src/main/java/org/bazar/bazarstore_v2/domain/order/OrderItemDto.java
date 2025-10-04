@@ -1,26 +1,21 @@
 package org.bazar.bazarstore_v2.domain.order;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItemDto {
-    private String productId;
+    private Long productId;
     private String productName;
     private int quantity;
-
-    // Default constructor
-    public OrderItemDto(String productId, String productName, int quantity) {
-        this.productId = productId;
-        this.productName = productName;
-        this.quantity = quantity;
-    }
-    public String getProductId() {
-        return productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-    // Getters, setters, constructors
+    private Long discountId;
 }

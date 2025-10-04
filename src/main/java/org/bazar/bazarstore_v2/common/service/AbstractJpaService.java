@@ -1,6 +1,6 @@
 package org.bazar.bazarstore_v2.common.service;
 
-import org.bazar.bazarstore_v2.common.entity.BaseEntity;
+import org.bazar.bazarstore_v2.common.entity.BaseJpaEntity;
 import org.bazar.bazarstore_v2.common.exception.EntityNotFoundException;
 import org.bazar.bazarstore_v2.common.mapper.DtoMapper;
 import org.bazar.bazarstore_v2.common.util.RepositoryUtil;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class AbstractJpaService<
-        Entity extends BaseEntity,
+        Entity extends BaseJpaEntity,
         ID,
         RequestDTO,
         ResponseDTO,

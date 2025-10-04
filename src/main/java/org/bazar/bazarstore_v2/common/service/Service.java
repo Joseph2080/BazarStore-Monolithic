@@ -1,12 +1,12 @@
 package org.bazar.bazarstore_v2.common.service;
 
 
-import org.bazar.bazarstore_v2.common.entity.BaseEntity;
+import org.bazar.bazarstore_v2.common.entity.BaseJpaEntity;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface Service<Entity extends BaseEntity, ID, RequestDto, ResponseDto> {
+public interface Service<Entity extends BaseJpaEntity, ID, RequestDto, ResponseDto> {
     ResponseDto create(RequestDto dto);
     List<ResponseDto> findAll(Pageable pageable);
     void update(ID id, RequestDto dto);

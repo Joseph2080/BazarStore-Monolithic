@@ -1,24 +1,20 @@
 package org.bazar.bazarstore_v2.domain.payment;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class PaymentResponse {
 
     private String paymentId;
-    private String status;
+    private PaymentStatus status;
 
-    public PaymentResponse(String paymentId, String status) {
+    public PaymentResponse(String paymentId, PaymentStatus status) {
         this.paymentId = paymentId;
         this.status = status;
-    }
-
-    public PaymentResponse() {
-    }
-
-    public String getPaymentId() {
-        return paymentId;
-    }
-
-    public String getStatus() {
-        return status;
     }
 
     @Override

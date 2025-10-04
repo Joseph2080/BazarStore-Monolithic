@@ -11,7 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.bazar.bazarstore_v2.common.entity.BaseEntity;
+import org.bazar.bazarstore_v2.common.entity.BaseJpaEntity;
 import org.bazar.bazarstore_v2.domain.mediaResource.MediaResource;
 import org.bazar.bazarstore_v2.domain.product.Product;
 
@@ -22,7 +22,7 @@ import org.bazar.bazarstore_v2.domain.product.Product;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductCatalog extends BaseEntity {
+public class ProductCatalog extends BaseJpaEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)

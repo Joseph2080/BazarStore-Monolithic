@@ -1,11 +1,16 @@
 package org.bazar.bazarstore_v2.domain.order;
 
-import java.time.LocalDateTime;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Builder
+@Getter
+@Setter
 public class OrderRequestDto {
     private String customerId;
-    private List<OrderItem> items;
-    private String status;
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private List<OrderItemDto> items;
+
 }

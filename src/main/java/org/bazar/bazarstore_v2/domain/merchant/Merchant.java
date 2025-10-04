@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.bazar.bazarstore_v2.common.entity.BaseEntity;
+import org.bazar.bazarstore_v2.common.entity.BaseJpaEntity;
 
 @Builder
 @Entity
@@ -16,7 +16,7 @@ import org.bazar.bazarstore_v2.common.entity.BaseEntity;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Merchant extends BaseEntity {
+public class Merchant extends BaseJpaEntity {
 
     private String taxId;
     private String firstname;

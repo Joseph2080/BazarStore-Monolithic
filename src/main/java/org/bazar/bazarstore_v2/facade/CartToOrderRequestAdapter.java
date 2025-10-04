@@ -2,7 +2,8 @@ package org.bazar.bazarstore_v2.facade;
 
 import org.bazar.bazarstore_v2.domain.cart.Cart;
 import org.bazar.bazarstore_v2.domain.cart.CartItem;
-import org.bazar.bazarstore_v2.domain.order.OrderItem;
+import org.bazar.bazarstore_v2.domain.discount.DiscountResponseDto;
+import org.bazar.bazarstore_v2.domain.order.OrderItemDto;
 import org.bazar.bazarstore_v2.domain.order.OrderRequestDto;
 import org.springframework.stereotype.Component;
 
@@ -17,26 +18,22 @@ public class CartToOrderRequestAdapter {
             throw new IllegalArgumentException("Cart is empty or null");
         }
 
-        List<OrderItem> orderItems = cart.getItems().stream()
+        List<OrderItemDto> orderItems = cart.getItems().stream()
                 .map(this::convertCartItemToOrderItem)
                 .collect(Collectors.toList());
-        /*return new Order(
-                cart.getUuid(),
-                orderItems,
-                null,
-                null
-        );*/
-        return null;
+        return OrderRequestDto.builder()
+                .customerId(cart.getUuid())
+                .items(orderItems)
+                .build();
     }
 
-    private OrderItem convertCartItemToOrderItem(CartItem cartItem) {
-        return new OrderItem(
-                cartItem.getProductId(),
-                cartItem.getProductName(),
-                cartItem.getQuantity(),
-                cartItem.getPrice(),
-                cartItem.getStoreId()
-        );
+    private OrderItemDto convertCartItemToOrderItem(CartItem cartItem) {
+        return OrderItemDto
+                .builder()
+                .productId(cartItem.getProductId())
+                .productName(cartItem.getProductName())
+                .quantity(cartItem.getQuantity())
+                .discountId(cartItem.getDiscountId())
+                .build();
     }
-
 }
