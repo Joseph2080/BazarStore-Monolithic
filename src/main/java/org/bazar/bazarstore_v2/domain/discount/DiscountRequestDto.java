@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bazar.bazarstore_v2.common.dto.BaseRequestDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DiscountRequestDto {
+public class DiscountRequestDto extends BaseRequestDto {
     private String name;
     private String description;
     private BigDecimal percentage;

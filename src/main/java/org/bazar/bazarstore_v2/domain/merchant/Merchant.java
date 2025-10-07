@@ -7,9 +7,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.bazar.bazarstore_v2.common.entity.BaseJpaEntity;
 
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "merchants")
 @AllArgsConstructor

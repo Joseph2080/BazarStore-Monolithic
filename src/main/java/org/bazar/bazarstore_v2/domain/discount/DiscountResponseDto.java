@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bazar.bazarstore_v2.common.dto.BaseResponseDto;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -14,7 +15,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DiscountResponseDto {
+public class DiscountResponseDto extends BaseResponseDto {
     private Long id;
     private BigDecimal percentage;
     private Set<Long> productIdSet;
