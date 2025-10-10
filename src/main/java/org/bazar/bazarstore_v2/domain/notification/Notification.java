@@ -47,6 +47,6 @@ public class Notification extends BaseJpaEntity {
     @Column(name = "sent_at")
     private LocalDateTime sentAt;
 
-    @Column(name = "error_message")
+    @Column(name = "error_message", columnDefinition = "TEXT")
     private String errorMessage;
 }

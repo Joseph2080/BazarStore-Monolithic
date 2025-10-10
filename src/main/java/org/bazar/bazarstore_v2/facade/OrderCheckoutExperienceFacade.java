@@ -112,6 +112,5 @@ public class OrderCheckoutExperienceFacade {
                 .build();
 
         notificationDispatcherFactory.send(notificationRequestDto);
-
     }
 }

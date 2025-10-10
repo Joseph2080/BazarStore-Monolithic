@@ -3,7 +3,7 @@ package org.bazar.bazarstore_v2.domain.cart;
 import java.util.List;
 
 public interface CartService {
-    public void create(String cartId, Cart cart);
+    void create(String cartId, Cart cart);
     void clearById(String cartId);
     Cart findById(String cartId);
     Cart findCartByCustomerId(String customerId);

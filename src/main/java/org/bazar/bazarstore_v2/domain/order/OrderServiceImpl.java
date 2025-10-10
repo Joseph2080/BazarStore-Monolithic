@@ -18,7 +18,6 @@ public class OrderServiceImpl extends AbstractJpaService<
 
     private ProductService productService;
     private DiscountService discountService;
-    //need to implement a dto mapper for order-service as well
     public OrderServiceImpl(OrderRepository repository,
                             OrderDtoMapper dtoMapper,
                             ProductService productService,

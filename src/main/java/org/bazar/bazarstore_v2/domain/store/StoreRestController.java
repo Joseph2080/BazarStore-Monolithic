@@ -82,7 +82,7 @@ public class StoreRestController {
     @Operation(summary = "Delete a store", description = "Deletes a store by ID.")
     @ApiResponse(responseCode = "200", description = "Store deleted successfully")
     @DeleteMapping
-    public ResponseEntity<Map<String, Object>> deleteStore(@RequestBody Long storeId) {
+    public ResponseEntity<Map<String, Object>> deleteStore(@RequestParam Long storeId) {
         storeService.deleteById(storeId);
         return buildResponse(null, HttpStatus.OK, "Store has been deleted successfully.");
     }
